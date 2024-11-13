@@ -1,5 +1,5 @@
 #include <stdio.h>
-    
+        
 int busca(int num, int *list, int *size){
     int i = 0;
     while(list[i] != num){
