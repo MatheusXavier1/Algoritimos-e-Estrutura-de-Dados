@@ -5,7 +5,7 @@ typedef struct node{
     Node* next;
 }Node;
 
-void initInsertion(Node** head, int newData){
+void begginInsert(Node** head, int newData){
     Node* newNode = (Node*)malloc(sizeof(Node));
     newNode->data = newData;
     newNode->next = *head;

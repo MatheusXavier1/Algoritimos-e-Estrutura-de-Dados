@@ -34,21 +34,22 @@ void initDelete(Node** head){
 }
 
 void deleteEnd(Node** head){
+    
+    if(*head == NULL)return;
+
+    if((*head)->next == NULL){
+        free(head);
+        *head = NULL;
+        return;
+    }
 
     Node* temp = *head;
     Node* prev = NULL;
 
-    if(temp->next == NULL){
-        temp = *head;
-        *head = (*head)->next;
-        free(temp);
-    }
-    if(temp == NULL)return;
-
-    while(temp != NULL){
+    while(temp->next != NULL){
         prev = temp;
         temp = temp->next;
     }
-    prev->next = temp->next;
+    prev->next = NULL;
     free(temp);
 }

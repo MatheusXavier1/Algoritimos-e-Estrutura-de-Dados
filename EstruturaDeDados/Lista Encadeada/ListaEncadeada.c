@@ -10,14 +10,14 @@ Node* init(){
     return NULL; //Criando uma lista vazia
 }
 
-void insertInitNode(Node** head, int newData){ // inserindo no início da lista
+void begginInsert(Node** head, int newData){ // inserindo no início da lista
     Node* newNode = (Node*)malloc(sizeof(Node)); //criando um espaço para inserir na lista usando memory allocation
     newNode->data = newData; //colocando o valor de newData como o "data" do node criado
     newNode->next = *head; //colocando ele no início da lista
     *head = newNode; //faz o head apontar para o novo nó
 }
 
-void insertEnd(Node** head, int newData){
+void endInsert(Node** head, int newData){
 
     Node* newNode = (Node*)malloc(sizeof(Node));
     newNode->data = newData;
@@ -36,7 +36,7 @@ void insertEnd(Node** head, int newData){
     }
 }
 
-void insertMiddle(Node** head, int newData, int ref){
+void midInsert(Node** head, int newData, int ref){
     Node* newNode = (Node*)malloc(sizeof(Node));
     newNode->data = newData;
     Node* aux;
@@ -131,16 +131,16 @@ void printList(Node* node){
 int main(){
     Node* head = init();
 
-    insertInitNode(&head,10);
+    begginInsert(&head,10);
     printList(head);
 
-    insertInitNode(&head,12);
+    begginInsert(&head,12);
     printList(head);
 
-    insertInitNode(&head,13);
+    begginInsert(&head,13);
     printList(head);
 
-    insertInitNode(&head,14);
+    begginInsert(&head,14);
     printList(head);
 
     deleteEnd(&head);
