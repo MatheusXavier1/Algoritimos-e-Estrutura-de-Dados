@@ -3,7 +3,7 @@
 
 typedef struct Node{
     int data;
-    Node* next;
+   struct Node* next;
 }Node;
 
 Node* init(){ 
@@ -17,12 +17,41 @@ void insertInitNode(Node** head, int newData){ // inserindo no início da lista
     *head = newNode; //faz o head apontar para o novo nó
 }
 
-void printList(Node* node){
-    while(node != NULL){ //enquanto não cheagar no último
-        printf("%d->",node->data);
-        node = node->next; //passando de nó em nó
+void insertEnd(Node** head, int newData){
+
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = newData;
+    newNode->next = NULL;
+    Node* aux;
+
+    if(*head == NULL){
+        *head = newNode;
     }
-    printf("->NULL");
+    else{
+        aux = *head;
+        while(aux->next != NULL){
+            aux = aux->next;
+        }
+        aux->next = newNode;
+    }
+}
+
+void insertMiddle(Node** head, int newData, int ref){
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = newData;
+    Node* aux;
+    if(*head == NULL){
+        newNode->next = NULL;
+        *head = newNode;
+    }
+    else{
+        aux = *head;
+        while(aux->data != ref  && aux->next != NULL){
+            aux = aux->next;
+        }
+        newNode->next = aux->next;
+        aux->next = newNode;
+    }
 }
 
 void deleteNode(Node** head, int value){ //removendo no início da lista
@@ -49,6 +78,34 @@ void deleteNode(Node** head, int value){ //removendo no início da lista
     free(temp); //libera temp
 
 }
+
+void deleteInit(Node** head){
+    if(*head == NULL)return;
+    Node* remove = *head;
+    *head = (*head)->next;
+    free(remove);
+}
+
+void deleteEnd(Node** head){
+
+    Node* temp = *head;
+    Node* prev = NULL;
+
+    if(temp->next == NULL){
+        temp = *head;
+        *head = (*head)->next;
+        free(temp);
+    }
+    if(temp == NULL)return;
+
+    while(temp != NULL){
+        prev = temp;
+        temp = temp->next;
+    }
+    prev->next = temp->next;
+    free(temp);
+}
+
 void reverseList(Node** head){
     Node* prev = NULL;
     Node* current = *head;
@@ -61,30 +118,39 @@ void reverseList(Node** head){
         } 
         *head = prev;
     }
+
+void printList(Node* node){
+    while(node != NULL){ //enquanto não cheagar no último
+        printf("%d->",node->data);
+        node = node->next; //passando de nó em nó
+    }
+    printf("->NULL");
+    printf("\n");
+}
+
 int main(){
     Node* head = init();
 
-    insert(&head,10);
+    insertInitNode(&head,10);
     printList(head);
 
-    insert(&head,12);
+    insertInitNode(&head,12);
     printList(head);
 
-    insert(&head,13);
+    insertInitNode(&head,13);
     printList(head);
 
-    insert(&head,14);
+    insertInitNode(&head,14);
     printList(head);
 
-    deleteNode(&head,12);
-    printList(head);
-    
-    deleteNode(&head,10);
+    deleteEnd(&head);
     printList(head);
 
-    deleteNode(&head,13);
+    deleteInit(&head);
     printList(head);
-    reverseList(&head);
+
+    deleteInit(&head);
     printList(head);
+
     return 0;
 }
